@@ -5,11 +5,17 @@ class Solution:
     def findOriginalArray(self, changed: List[int]) -> List[int]:
         original = []
         n = len(changed)
-        for i in range(n-1):
-            for j in range(i+1,n):
-                if(changed[j] == 2 * changed[i]):
-                    original.append(changed[i])
-                    changed[j] = -1         
+        
+        if(n % 2 == 0 ):
+            for i in range(n-1):
+                for j in range(i+1,n):
+                    if(changed[j] == 2 * changed[i]):
+                        original.append(changed[i])
+                        changed[j] = -1
+                        
+        else:
+            original = []
+
         return original
 
 s = Solution()
