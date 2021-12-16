@@ -3,18 +3,24 @@ class Solution:
         l = len(s)
         if(l%2 != 0):
             return False
-        stack = []
+        storeO = []
         openingP = "({["
         closingP = ")}]"
         for parenthesis in s:
             if parenthesis in openingP:
-                stack.append(parenthesis)
+                storeO.append(parenthesis)
             elif parenthesis in closingP:
-                if (stack):
-                    op = stack[-1]
+                if (storeO):
+                    op = storeO[-1]
                     if(openingP.index(op) == closingP.index(parenthesis)):
-                        stack.pop()
-        return False if len(stack) else True  
+                        storeO.pop()
+                    else:
+                        return False
+                else:
+                    return False
+        return False if len(storeO)  else True  
 
 s = Solution()
 print(s.isValid("()[]{}"))
+print(s.isValid("([}}])"))
+print(s.isValid("))"))
