@@ -6,7 +6,7 @@ class Solution:
         pair.sort(reverse=True)
         stack = []
         
-        for p, s in pair:
+        for p, s in pair:   # for every position and speed calculate the time it take for the cars to complete the race
             stack.append((target-p)/s)
             if len(stack) >= 2 and stack[-1] <= stack[-2]:
                 stack.pop()
