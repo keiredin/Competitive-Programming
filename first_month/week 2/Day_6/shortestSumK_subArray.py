@@ -1,32 +1,26 @@
-from typing import List
+import collections
+from typing import  List
 class Solution:
     def shortestSubarray(self, nums: List[int], k: int) -> int:
-        start = 0
-        end = 0
-        currentSum = 0
-        n = len(nums)
-        minlen = n*n
+        queue = collections.deque()
+        queue.append([0,0])
+        summ = 0
+        minlen = float('inf')
         
-        while end < n and start < n-1:
-            currentSum += nums[end]
+        for i, num in enumerate(nums):
+            summ += num
             
-            if(currentSum >= k):
+            while queue and summ - queue[0][1] >= k:
+                minlen = min(minlen, i - queue[0][0] + 1)
+                queue.popleft()
                 
-                # subarrays += (end - start + 1)
-                currentSum -= nums[start]
-                minlen = min(minlen,len(nums[start:end+1]))
-                print(nums[start:end+1])
-                start += 1
-                if end > start:
-                    continue 
-        
-            if(end >= n-1):
-                currentSum -= nums[start]
-                start += 1
-                continue
+            while queue and summ <= queue[-1][1]:
+                queue.pop()
                 
-            end += 1
-        return minlen if minlen <= n else -1
+            queue.append([i+1, summ])
+            
+        return minlen if minlen < float('inf') else -1
+                
     
 
 
